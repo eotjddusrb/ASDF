@@ -64,9 +64,22 @@ void cardpractice()
 	// 52 = 클로버 K
 	
 	int CardSet[52];
-	CardSet = srand();
+	int i, a, b, c, temp;
 
+	srand((unsigned)time(NULL));
 
+	for (i = 0; i < 52; i++)
+	{
+		CardSet[i] = i + 1;
+	}
+
+	for (i = 0; i < 20; i++)
+	{
+		temp = CardSet[a];
+		CardSet[a] = CardSet[b];
+		CardSet[b] = CardSet[c];
+		CardSet[c] = temp;
+	}
 }
 // 이주현
 // 스페이드 다이아 하트 클로버
