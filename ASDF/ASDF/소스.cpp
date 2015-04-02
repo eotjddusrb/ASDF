@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 void commit()
 { 
@@ -15,7 +17,6 @@ void commit()
 	*/
 
 	//14학번 홍수빈
-
 
 }
 
@@ -48,5 +49,23 @@ void into_source()
 	// 3) 딜러가 플레이어의 수보다 큰경우는 stand
 	// 4) 딜러와 플레이어의 수가 같은경우 는 stand
 	// 게임 다시 시작
+
+}
+
+
+void cardpractice()
+{
+
+	//모양 순서는 스페이드 다이아 하트 클로버 순으로 함
+	//  1 = 스페이드 A
+	// 2 = 스페이드 2
+	// 11 = 스페이드 J
+	// 14 = 다이아 A
+
+	// 52 = 클로버 K
+
+	int CardSet[52];
+	CardSet = srand( )
+
 
 }
