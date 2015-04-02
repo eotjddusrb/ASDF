@@ -68,9 +68,9 @@ void cardpractice()
 
 
 }
-// 이주현.
-// 스페이드 다이아 하트 클로버. 커밋 test 커밋커밋21215sdfsasdfsdf
-//카드 돌리기 함수..
+// 이주현
+// 스페이드 다이아 하트 클로버
+//카드 돌리기 함수
 
 void cardpractice()
 {
