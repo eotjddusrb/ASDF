@@ -52,7 +52,16 @@ void into_source()
 }
 
 
-void cardpractice()
+
+
+
+
+
+
+
+
+
+void card_practice()
 {
 
 	//모양 순서는 스페이드 다이아 하트 클로버 순으로 함
@@ -75,12 +84,17 @@ void cardpractice()
 
 	for (i = 0; i < 20; i++)
 	{
+		a = rand() % 52 + 1;
+		b = rand() % 52 + 1;
+		c = rand() % 52 + 1;
 		temp = CardSet[a];
 		CardSet[a] = CardSet[b];
 		CardSet[b] = CardSet[c];
 		CardSet[c] = temp;
 	}
 }
+
+
 // 이주현
 // 스페이드 다이아 하트 클로버
 //카드 돌리기 함수
@@ -90,11 +104,25 @@ void cardpractice()
 	int i, k;
 	int card[4][13] = { 0 };
 	int get_card;
+	int n;
 
 	int srand((unsigned)time(NULL));
 
 	i = 1 + rand() % 4;
 	k = 1 + rand() % 13;
 	get_card = card[i][k];
+	
+}
 
+void fixing()
+{
+	int CardSet[4][13];
+	int i, j, k;
+	srand((unsigned)time(NULL));
+
+	for (i = 0; i < 4; i++)
+		for (j = 0; j < 13; j++)
+		{
+			CardSet[i][j] = i + 1;
+		}
 }
