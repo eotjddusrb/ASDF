@@ -6,12 +6,11 @@ void commit()
 { 
 	printf("Hello World\n\n");
 	printf("14학번 이연규 입니다.");
-	
 	printf("모두 영상보고 동기화 해주세요\n");
 	printf("커밋 날려주세요\n");
 	/*
-	Hit(힛) - 플레이어가 추가 카드를 더 원할 때 딜러에게 표현하는 용어
-	Stay(스테이) - 플레이어가 추가 카드를 더 이상 원하지 않을 때 딜러에게 표현하는 용어
+	Hit(힛) - 플레이어가 추가 카드를 더 원할 때 딜러에게 표현하는 용어.
+	Stay(스테이) - 플레이어가 추가 카드를 더 이상 원하지 않을 때 딜러에게 표현하는 용어.
 	Bust(버스트) - 플레이어가 추가 카드를 받아서(Hit) 21을 초과하였을 때 딜러가 표현하는 용어
 	Push(푸시) - 딜러와 플레이어의 카드 합이 같을 때 딜러가 표현하는 용어(Tie라고도 함) 
 	*/
@@ -38,7 +37,7 @@ void post_programing()
 void into_source()
 {
 	//게임 시작화면 출력
-	//카드 분배
+	//카드 분배.
 	//hit or stand 선택 화면
 	// hit 함수 stand 함수
 	// 다시 카드를 보고 hit or  ,stand 선택
@@ -63,9 +62,26 @@ void cardpractice()
 	// 14 = 다이아 A
 
 	// 52 = 클로버 K
-
+	
 	int CardSet[52];
-	CardSet = srand( )
+	CardSet = srand();
 
+
+}
+// 이주현.
+// 스페이드 다이아 하트 클로버. 커밋 test 커밋커밋21215sdfsasdfsdf
+//카드 돌리기 함수..
+
+void cardpractice()
+{
+	int i, k;
+	int card[4][13] = { 0 };
+	int get_card;
+
+	int srand((unsigned)time(NULL));
+
+	i = 1 + rand() % 4;
+	k = 1 + rand() % 13;
+	get_card = card[i][k];
 
 }
