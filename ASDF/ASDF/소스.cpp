@@ -2,18 +2,22 @@
 #include <time.h>
 #include <stdlib.h>
 
+char Game_Start();
+void Card_Set();
+
+/*
 void commit()
 { 
 	printf("Hello World\n\n");
 	printf("14학번 이연규 입니다.");
 	printf("모두 영상보고 동기화 해주세요\n");
 	printf("커밋 날려주세요\n");
-	/*
-	Hit(힛) - 플레이어가 추가 카드를 더 원할 때 딜러에게 표현하는 용어.
-	Stay(스테이) - 플레이어가 추가 카드를 더 이상 원하지 않을 때 딜러에게 표현하는 용어.
-	Bust(버스트) - 플레이어가 추가 카드를 받아서(Hit) 21을 초과하였을 때 딜러가 표현하는 용어
-	Push(푸시) - 딜러와 플레이어의 카드 합이 같을 때 딜러가 표현하는 용어(Tie라고도 함) 
-	*/
+	
+	//Hit(힛) - 플레이어가 추가 카드를 더 원할 때 딜러에게 표현하는 용어.
+	//Stay(스테이) - 플레이어가 추가 카드를 더 이상 원하지 않을 때 딜러에게 표현하는 용어.
+	//Bust(버스트) - 플레이어가 추가 카드를 받아서(Hit) 21을 초과하였을 때 딜러가 표현하는 용어
+	//Push(푸시) - 딜러와 플레이어의 카드 합이 같을 때 딜러가 표현하는 용어(Tie라고도 함) 
+	
 
 	//14학번 홍수빈
 
@@ -50,16 +54,78 @@ void into_source()
 	// 게임 다시 시작
 
 }
+*/
+void main()
+{
+
+
+	char start;
+	start = Game_Start(); // 게임을 시작하시겠습니까? (Y/N)
+	
+	if (start != 'Y')
+		printf("누구세요");
+
+	Card_Set(); // 카드를 섞어놓음
+	/*
+	Get_Card(); // 딜러와 나의 초기 카드를 나눠줌
+	
+	// Stand까지 반복
+	Show_Card(); // 지금 딜러의 카드와 나의 카드를 보여줌
+
+	printf("Hit or Stand"); // 선택권부여
+
+	Hit(); // 카드 하나 추가요
+
+	Stand(); // 함 까보자
+
+	Dealer_Turn(); // 딜러의 카드 공개후 딜러 hit or Stand 하여 딜러카드 완료
+	
+	Result(); // 둘의 카드를 비교하여 결과 승리 or 패배
+
+	ReGame(); // 리겜 선택시 CardSet();으로 이동
+	*/
+
+	GameOver:
+	return;
+}
+
+char Game_Start()
+{
+	char ans = 'A';
+	printf("게임을 시작하시겠습니까? (Y/N) : ");
+	scanf("%c", ans);
+
+	return ans;
+}
+
+void Card_Set()
+{
+	int CardSet[52];
+	int i, a, b, c, temp;
+
+	srand((unsigned)time(NULL));
+
+	for (i = 0; i < 52; i++)
+	{
+		CardSet[i] = i + 1;
+	}
+
+	for (i = 0; i < 20; i++)
+	{
+		a = rand() % 52 + 1;
+		b = rand() % 52 + 1;
+		c = rand() % 52 + 1;
+		temp = CardSet[a];
+		CardSet[a] = CardSet[b];
+		CardSet[b] = CardSet[c];
+		CardSet[c] = temp;
+	}
+
+}
 
 
 
-
-
-
-
-
-
-
+/*
 
 void card_practice()
 {
@@ -126,3 +192,4 @@ void fixing()
 			CardSet[i][j] = i + 1;
 		}
 }
+*/
