@@ -10,7 +10,7 @@ void commit()
 { 
 	printf("Hello World\n\n");
 	printf("14학번 이연규 입니다.");
-	printf("모두 영상보고 동기화 해주세요\n");
+	printf("모두 영상보고 동기화 해주세요\n");ㄹㄹㄻㄴㄹㅇ
 	printf("커밋 날려주세요\n");
 	
 	//Hit(힛) - 플레이어가 추가 카드를 더 원할 때 딜러에게 표현하는 용어.
@@ -125,7 +125,7 @@ void Card_Set()
 
 
 
-/*
+
 
 void card_practice()
 {
@@ -161,35 +161,38 @@ void card_practice()
 }
 
 
-// 이주현
-// 스페이드 다이아 하트 클로버
-//카드 돌리기 함수
+ /*이주현
+ 카드돌리기.ㅔㅔㅔㅔㅔㅔ
+	 void main(){
 
-void cardpractice()
-{
-	int i, k;
-	int card[4][13] = { 0 };
-	int get_card;
-	int n;
+	 int a, b, c, d, f;
+	 static int e = 0;
+	 int card[4][13] = { 0 };
 
-	int srand((unsigned)time(NULL));
 
-	i = 1 + rand() % 4;
-	k = 1 + rand() % 13;
-	get_card = card[i][k];
-	
-}
+	 srand((long)time(NULL));
 
-void fixing()
-{
-	int CardSet[4][13];
-	int i, j, k;
-	srand((unsigned)time(NULL));
+	 for (c = 0; c < 4; c++){
+		 for (f = 0; f < 13; f++){
+			 d = rand() % 13;
+			 if (card[c][d] == 0)
+				 card[c][d] = ++e;
+			 else{
+				 d = rand() % 13;
+				 while (card[c][d] != 0){
+					 d = rand() % 13;
+				 }
+				 card[c][d] = ++e;
+			 }
+		 }
+		 e = 0;
+	 }
 
-	for (i = 0; i < 4; i++)
-		for (j = 0; j < 13; j++)
-		{
-			CardSet[i][j] = i + 1;
-		}
-}
-*/
+	 for (a = 0; a < 4; a++){
+		 for (b = 0; b < 13; b++){
+			 printf("%d  ", card[a][b]);
+		 }
+		 printf("\n");
+	 }
+	 return;
+ }*/
