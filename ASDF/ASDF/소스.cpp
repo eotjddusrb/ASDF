@@ -160,39 +160,37 @@ void card_practice()
 	}
 }
 
+/*카드 돌리기*/
+void card_suffle(){
 
- /*이주현
- 카드돌리기
-	 void main(){
-
-	 int a, b, c, d, f;
-	 static int e = 0;
-	 int card[4][13] = { 0 };
+	int a, b, line1, line2, c;
+	static int e = 0;
+	int card[4][13] = { 0 };
 
 
-	 srand((long)time(NULL));
+	srand((long)time(NULL));
 
-	 for (c = 0; c < 4; c++){
-		 for (f = 0; f < 13; f++){
-			 d = rand() % 13;
-			 if (card[c][d] == 0)
-				 card[c][d] = ++e;
-			 else{
-				 d = rand() % 13;
-				 while (card[c][d] != 0){
-					 d = rand() % 13;
-				 }
-				 card[c][d] = ++e;
-			 }
-		 }
-		 e = 0;
-	 }
+	for (line1 = 0; line1 < 4; line1++){
+		for (c = 0; c < 13; c++){
+			line2 = rand() % 13;//행에서 임의의 열 선택
+			if (card[line1][line2] == 0)//데이터가 0이면 1추가
+				card[line1][line2] = ++e;
+			else{
+				line2 = rand() % 13;//0이 아닐 경우 다시 선택
+				while (card[line1][line2] != 0){//0일 때까지 반복 선택
+					line2 = rand() % 13;
+				}
+				card[line1][line2] = ++e;//추가
+			}
+		}
+		e = 0;//e를 0으로 초기화한 뒤 다음 행으로 이동
+	}
 
-	 for (a = 0; a < 4; a++){
-		 for (b = 0; b < 13; b++){
-			 printf("%d  ", card[a][b]);
-		 }
-		 printf("\n");
-	 }
-	 return;
- }*/
+	for (a = 0; a < 4; a++){
+		for (b = 0; b < 13; b++){
+			printf("%d  ", card[a][b]);
+		}
+		printf("\n");
+	}
+	return;
+}
