@@ -1,107 +1,108 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 
-char Game_Start();
-void Card_Set();
+char Game_Start(); // 게임을 시작하시겠습니까
+void Card_Set(); // 카드를 섞는 과정에서 가끔 중간에 쓰레기값이 생성됨 (수정 요함)
+int Get_Card(); // 처음 카드 두장 분배
+void Show_Card(); // 플레이어와 딜러 처음 2장씩 받은 카드를 보여주는 함수
+char* NumtoCard(int num_shape); //문양이 뭔지 찾아내서 문자열에 넣어주는 함수 (사용안한부분도 있음)
+void Print_Card(char* shape, int number); //카드를 보여주는 함수
+int Hit(int, int); //플레이어가 Hit하면 들어가는 함수
+int Player_Sum(int PlayerIndex); //플레이어의 카드 합
+void Dealer_Turn(int Pindex, int Cindex, int PlayerSum);
+int Dealer_Hit(int, int);
 
-/*
-void commit()
-{ 
-	printf("Hello World\n\n");
-	printf("14학번 이연규 입니다.");
-	printf("모두 영상보고 동기화 해주세요\n");
-	printf("커밋 날려주세요\n");
-	
-	//Hit(힛) - 플레이어가 추가 카드를 더 원할 때 딜러에게 표현하는 용어.
-	//Stay(스테이) - 플레이어가 추가 카드를 더 이상 원하지 않을 때 딜러에게 표현하는 용어.
-	//Bust(버스트) - 플레이어가 추가 카드를 받아서(Hit) 21을 초과하였을 때 딜러가 표현하는 용어
-	//Push(푸시) - 딜러와 플레이어의 카드 합이 같을 때 딜러가 표현하는 용어(Tie라고도 함) 
-	
+// 전역 변수 선언
+int CardSet[52] = { 0 }; // 카드덱
+int Player[5] = { 0 }; //플레이어 카드
+int Dealer[5] = { 0 }; // 딜러의 카드
 
-	//14학번 홍수빈
-
-}
-
-void post_programing()
-{
-	//두개의 저장소-딜러와 플레이어
-	//게임시작시 배팅금액을 걸고
-	//딜러는 앞면으로 한장 뒷면으로 한장 플레이어는 앞면으로 두장을 받는다
-	//플레이어는 딜러의 앞면 카드와 자신의 카드 두장의 합을 생각하여
-	//한장 더받을지(Hit), 멈출지(Stand) 결정한다.
-	//카드를 받았을 때 Bust 되면 즉시 플레이어의 패배가 된다. (딜러의 패공개& 딜러의 승리라고 출력)
-	//딜러는 카드의 합이 15이하라면 한장을 더 받아야한다.
-	//플레이어가 Stand하기로 결정하면 딜러의 두번째 카드가 공개되고,
-	//딜러가 카드를 더 받을지 멈출지 판단하여 게임이 종료된다.
-	//딜러가 카드를 다 받고 Stand 하게 되거나 21이 되면 종료.
-
-}
-
-void into_source()
-{
-	//게임 시작화면 출력
-	//카드 분배.
-	//hit or stand 선택 화면
-	// hit 함수 stand 함수
-	// 다시 카드를 보고 hit or  ,stand 선택
-	// 수가 넘어가면 bust 출력 
-	//stand하면 딜러의 차례 딜러의 카드가 공개되며
-	// 1) if 딜러는 15이하일경우 hit
-	// 2) else if 딜러가 플레이어의 수보다 작은경우는 hit 
-	// 3) 딜러가 플레이어의 수보다 큰경우는 stand
-	// 4) 딜러와 플레이어의 수가 같은경우 는 stand
-	// 게임 다시 시작
-
-}
-*/
 void main()
 {
+	char start = 'A';
+	int CardIndex = 4; // 사용된 카드수
+	int PlayerIndex = 2; //플레이어의 카드수
+	int hos = 1; // Hit or Stand
 
+	int PlayerSum = 0;
+	int DealerSum = 0;
 
-	char start;
+	int Gameover = 0;
+
+regame:
+
 	start = Game_Start(); // 게임을 시작하시겠습니까? (Y/N)
-	
-	if (start != 'Y')
-		printf("누구세요");
 
-	Card_Set(); // 카드를 섞어놓음
-	/*
-	Get_Card(); // 딜러와 나의 초기 카드를 나눠줌
-	
-	// Stand까지 반복
-	Show_Card(); // 지금 딜러의 카드와 나의 카드를 보여줌
+	while (start == 'Y')
+	{
+		Card_Set(); // 카드를 섞어놓음
 
-	printf("Hit or Stand"); // 선택권부여
+		Gameover = Get_Card(); // 딜러와 나의 초기 카드를 나눠줌
+		if (Gameover == 1)
+			break;
 
-	Hit(); // 카드 하나 추가요
+		Show_Card(); // 지금 딜러의 카드와 나의 카드를 보여줌
 
-	Stand(); // 함 까보자
+		printf("1.Hit or 2.Stand 몇번을 선택하시겠습니까? : "); // 선택권부여
+		scanf_s("%d", &hos); // hit or stand 입력받음
+		fflush(stdin);
 
-	Dealer_Turn(); // 딜러의 카드 공개후 딜러 hit or Stand 하여 딜러카드 완료
-	
-	Result(); // 둘의 카드를 비교하여 결과 승리 or 패배
+		while (hos == 1)
+		{
+			Gameover = Hit(PlayerIndex, CardIndex); // 카드 하나 추가요
 
-	ReGame(); // 리겜 선택시 CardSet();으로 이동
-	*/
+			PlayerIndex++; // 플레이어의 카드가 추가됨
+			CardIndex++;
 
-	GameOver:
-	return;
+			if (PlayerIndex > 4)
+			{
+				printf("카드를 다섯장 다 받았습니다.\n Stand합니다.\n"); //카드의 최대 수는 다섯장
+				break;
+			}
+
+			if (Gameover == 1)
+				break;
+
+
+			printf("1.Hit or 2.Stand 몇번을 선택하시겠습니까? : "); // 선택권부여
+			scanf_s("%d", &hos);
+			fflush(stdin);
+		}
+		if (Gameover == 1)
+			break;
+
+		if (hos == 2)
+			printf("Stand하였습니다.\n");
+
+		PlayerSum = Player_Sum(PlayerIndex);
+
+		Dealer_Turn(PlayerIndex, CardIndex, PlayerSum); // 딜러의 카드 공개후 딜러 hit or Stand 하여 딜러카드 완료
+
+		printf("\n다시 ");
+		start = Game_Start();
+	}
+
+	printf("\n다시 한번 ");
+
+	goto regame;
 }
 
 char Game_Start()
 {
 	char ans = 'A';
-	printf("게임을 시작하시겠습니까? (Y/N) : ");
-	scanf("%c", ans);
 
+	printf("게임을 시작하시겠습니까? (Y/N) : ");
+	scanf_s("%c", &ans);
+	fflush(stdin);
 	return ans;
 }
 
 void Card_Set()
 {
-	int CardSet[52];
-	int i, a, b, c, temp;
+	// 카드덱을 전역함수로 보냄
+	int i, a, b, temp;
 
 	srand((unsigned)time(NULL));
 
@@ -109,88 +110,334 @@ void Card_Set()
 	{
 		CardSet[i] = i + 1;
 	}
+	printf("\n");
 
-	for (i = 0; i < 20; i++)
+	for (i = 0; i < 10; i++) //앞의 열장부터 열심히 바꾸고
 	{
 		a = rand() % 52 + 1;
 		b = rand() % 52 + 1;
-		c = rand() % 52 + 1;
+
+
+		temp = CardSet[i];
+		CardSet[i] = CardSet[a];
+		CardSet[a] = CardSet[b];
+		CardSet[b] = temp;
+	}
+
+	for (i = 0; i < 10; i++) //또 열심히 섞기
+	{
+		a = rand() % 52 + 1;
+		b = rand() % 52 + 1;
+
 		temp = CardSet[a];
 		CardSet[a] = CardSet[b];
-		CardSet[b] = CardSet[c];
-		CardSet[c] = temp;
+		CardSet[b] = temp;
 	}
 
 }
 
-
-
-
-
-void card_practice()
+int Get_Card()
 {
+	printf("카드를 나눠 줍니다.\n\n");
 
-	//모양 순서는 스페이드 다이아 하트 클로버 순으로 함
-	//  1 = 스페이드 A
-	// 2 = 스페이드 2
-	// 11 = 스페이드 J
-	// 14 = 다이아 A
+	Dealer[0] = CardSet[0];
+	Player[0] = CardSet[1];
+	Dealer[1] = CardSet[2];
+	Player[1] = CardSet[3]; //카드 넣어주고
 
-	// 52 = 클로버 K
-	
-	int CardSet[52];
-	int i, a, b, c, temp;
-
-	srand((unsigned)time(NULL));
-
-	for (i = 0; i < 52; i++)
+	if (Dealer[0] % 13 == 1 && (Dealer[1] % 13 == 10 || Dealer[1] % 13 == 11 || Dealer[1] % 13 == 12 || Dealer[1] % 13 == 0))//블랙잭 검사
 	{
-		CardSet[i] = i + 1;
+		printf("Blackjak!!\n 딜러의 승리\n");
+		return 1;
+	}
+	else if ((Dealer[0] % 13 == 10 || Dealer[0] % 13 == 11 || Dealer[0] % 13 == 12 || Dealer[0] % 13 == 0) && Dealer[1] % 13 == 1)
+	{
+		printf("Blackjak!!\n 딜러의 승리\n");
+		return 1;
 	}
 
-	for (i = 0; i < 20; i++)
+	if (Player[0] % 13 == 1 && (Player[1] % 13 == 10 || Player[1] % 13 == 11 || Player[1] % 13 == 12 || Player[1] % 13 == 0))
 	{
-		a = rand() % 52 + 1;
-		b = rand() % 52 + 1;
-		c = rand() % 52 + 1;
-		temp = CardSet[a];
-		CardSet[a] = CardSet[b];
-		CardSet[b] = CardSet[c];
-		CardSet[c] = temp;
+		printf("Blackjak!!\n 플레이어의 승리\n");
+		return 1;
 	}
+	else if ((Player[0] % 13 == 10 || Player[0] % 13 == 11 || Player[0] % 13 == 12 || Player[0] % 13 == 0) && Player[1] % 13 == 1)
+	{
+		printf("Blackjak!!\n 플레이어의 승리\n");
+		return 1;
+	}
+
+	return 0;
 }
 
-/*카드 돌리기*/
-void card_suffle(){
+void Show_Card()
+{
+	char* shape; //카드의 모양
+	int num_shape; //카드의 모양을 결정할 숫자
+	int number; //카드의 숫자
 
-	int a, b, line1, line2, c;
-	static int e = 0;
-	int card[4][13] = { 0 };
+
+	num_shape = (Dealer[0] - 1) / 13;
+	number = Dealer[0] % 13;
+
+	shape = NumtoCard(num_shape);
+
+	printf("Dealer : ");
+	Print_Card(shape, number);
+	printf(", ???? \n");
+
+	num_shape = (Player[0] - 1) / 13;
+	number = Player[0] % 13;
+
+	shape = NumtoCard(num_shape);
+
+	printf("Player : ");
+	Print_Card(shape, number);
+	printf(", ");
+
+	num_shape = (Player[1] - 1) / 13;
+	number = Player[1] % 13;
+
+	shape = NumtoCard(num_shape); // 문양이 무엇인지 알아냄
+	Print_Card(shape, number); // 카드를 보여줌
+
+	printf("\n\n");
+}
+
+char* NumtoCard(int num_shape) //1~13은 스페이드 이런 식으로 숫자를 문양으로 변경
+{
+	char* shape;
+
+	if (num_shape == 0)
+		shape = "Spade";
+	else if (num_shape == 1)
+		shape = "Diamond";
+	else if (num_shape == 2)
+		shape = "Heart";
+	else if (num_shape == 3)
+		shape = "Clover";
+	else
+		printf("오류");
+
+	return shape;
+}
+
+void Print_Card(char* shape, int number)
+{
+	if (number == 1)
+		printf("%s A ", shape);
+	else if (number == 0)
+		printf("%s K ", shape);
+	else if (number == 11)
+		printf("%s J ", shape);
+	else if (number == 12)
+		printf("%s Q ", shape);
+	else if (number > 1 && number < 11)
+		printf("%s %d ", shape, number);
+	else
+		printf("블루카드 뽑음 ㅈㅅ\n");
+}
+
+int Hit(int Pindex, int Cindex)
+{
+	int i, sum = 0;
+	char* shape;
+	int num_shape = 0;
+	int number;
+
+	Player[Pindex] = CardSet[Cindex];
+
+	printf("당신이 받은 카드는 ");
+
+	num_shape = ((Player[Pindex] - 1) / 13);
+	number = (Player[Pindex] % 13);
+
+	shape = NumtoCard(num_shape);
+	Print_Card(shape, number);
+	printf("\n\n");
+
+	for (i = 0; i < (Pindex + 1); i++)
+	{
+		if ((Player[i] % 13) == 0 || (Player[i] % 13) > 9)
+			sum += 10;
+		else if ((Player[i] % 13) > 0 && (Player[i] % 13) < 10)
+			sum += (Player[i] % 13);
+		else
+			printf("오류 카드를 못더함\n");
+	}
+
+	if (sum > 21)
+	{
+		printf("Bust \n");
+		printf("You Lose\n");
+		return 1;
+	}
+
+	return 0;
+}
+
+int Player_Sum(int Pindex)
+{
+	int PlayerSum = 0;
+	int i;
+
+	for (i = 0; i < Pindex; i++)
+	{
+		if ((Player[i] % 13) == 0 || (Player[i] % 13) > 9)
+			PlayerSum += 10;
+		else if ((Player[i] % 13) > 1 && (Player[i] % 13) < 10)
+			PlayerSum += (Player[i] % 13);
+		else if ((Player[i] % 13) == 1)
+			PlayerSum += 11;
+		else
+			printf("플레이어 카드를 못더함\n");
+	}
+	//21이 넘어서 Bust가 되는건 Hit에서 계산 했으므로 여기서 A일때는 11을 넣고 21이 넘게된다면 합에서 10을 빼면 됨
+
+	//이미 Bust는 Hit을 돌면서 검사했기 때문에
+	while (PlayerSum > 21) //여기서 21이 넘었다면 A가 존재하기 때문임
+		PlayerSum -= 10;
 
 
-	srand((long)time(NULL));
 
-	for (line1 = 0; line1 < 4; line1++){
-		for (c = 0; c < 13; c++){
-			line2 = rand() % 13;//행에서 임의의 열 선택
-			if (card[line1][line2] == 0)//데이터가 0이면 1추가
-				card[line1][line2] = ++e;
-			else{
-				line2 = rand() % 13;//0이 아닐 경우 다시 선택
-				while (card[line1][line2] != 0){//0일 때까지 반복 선택
-					line2 = rand() % 13;
-				}
-				card[line1][line2] = ++e;//추가
+	printf("\n플레이어의 합 : %d \n\n", PlayerSum);
+	return PlayerSum;
+}
+
+void Dealer_Turn(int Pindex, int Cindex, int PlayerSum)
+{
+	//딜러의 두번째 카드 까기
+	char* shape;
+	int num_shape;
+	int number;
+	int Dindex = 2;
+	int DealerSum = 0;
+	int DetermineA = 0;
+	int i; // i는 언제나 for문의 인덱스
+	int Gameover = 0;
+
+	num_shape = (Dealer[0] - 1) / 13;
+	number = Dealer[0] % 13;
+
+	shape = NumtoCard(num_shape);
+
+	printf("Dealer : ");
+	Print_Card(shape, number);
+	printf(" , ");
+
+	num_shape = (Dealer[1] - 1) / 13; //딜러카드의 뒷면 표시
+	number = Dealer[1] % 13;
+
+	shape = NumtoCard(num_shape);
+	Print_Card(shape, number);
+	printf("\n");
+
+	//이제 딜러가 HoS 결정
+
+	for (i = 0; i < Dindex; i++)
+	{
+		if ((Dealer[i] % 13) == 0 || (Dealer[i] % 13) > 9)
+			DealerSum += 10;
+		else if ((Dealer[i] % 13) > 1 && (Dealer[i] % 13) < 10)
+			DealerSum += (Dealer[i] % 13);
+		else if ((Dealer[i] % 13) == 1)
+		{
+			DealerSum += 11;
+			DetermineA += 1; //이거로 A가 몇번 나왔는지 셀수 있음
+		}
+		else
+			printf("딜러 카드를 못더함\n");
+	}
+
+	if (DealerSum > 21 && DetermineA > 0) //이런 초기에 버스트 나오는 경우는 AA나온경우뿐임 
+	{
+		DealerSum -= 10;
+		DetermineA -= 1; // 이과정으로 인해 DetermineA는 A의 수를 세는것이 아닌 11로 계산된 A를 세는것으로 변경됨
+	}
+	printf("딜러 카드의 초기합 : %d \n", DealerSum);
+
+	while (DealerSum < 22)
+	{
+		while (DealerSum < 16 || DealerSum < PlayerSum)
+		{
+			Gameover = Dealer_Hit(Dindex, Cindex);
+			if (Gameover == 1)
+				break;
+
+			if ((Dealer[Dindex] % 13) == 0 || (Dealer[Dindex] % 13) > 9)
+				DealerSum += 10;
+			else if ((Dealer[Dindex] % 13) > 1 && (Dealer[Dindex] % 13) < 10)
+				DealerSum += (Dealer[Dindex] % 13);
+			else if ((Dealer[Dindex] % 13) == 1)
+			{
+				DealerSum += 11;
+				DetermineA += 1; //이거로 A가 몇번 나왔는지 셀수 있음
 			}
+
+			if (DealerSum > 21 && DetermineA > 0) // A를 11로 할지 1로 할지 결정 
+			{
+				DealerSum -= 10;
+				DetermineA -= 1; // 11로 계산된 A의 수
+			}
+
+			Dindex++;
+			Cindex++;
 		}
-		e = 0;//e를 0으로 초기화한 뒤 다음 행으로 이동
+
+		if (Gameover == 1)
+			break;
+
+		printf("딜러의 합 : %d \n플레이어의 합 : %d \n", DealerSum, PlayerSum);
+
+		if (DealerSum > PlayerSum && DealerSum < 22) // Dealer_Hit에서 Bust를 검사함
+		{
+			printf("딜러의 승리\n");
+			break;
+		}
+		else if (DealerSum == PlayerSum)
+		{
+			printf("Push\n");
+			break;
+		}
 	}
 
-	for (a = 0; a < 4; a++){
-		for (b = 0; b < 13; b++){
-			printf("%d  ", card[a][b]);
-		}
-		printf("\n");
-	}
-	return;
 }
+
+int Dealer_Hit(int Dindex, int Cindex)
+{
+	int i, sum = 0;
+	char* shape;
+	int num_shape = 0;
+	int number = 0;
+
+	Dealer[Dindex] = CardSet[Cindex];
+
+	printf("딜러가 받은 카드는 ");
+
+	num_shape = ((Dealer[Dindex] - 1) / 13);
+	number = (Dealer[Dindex] % 13);
+
+	shape = NumtoCard(num_shape);
+	Print_Card(shape, number);
+	printf("\n");
+
+	for (i = 0; i < (Dindex + 1); i++)
+	{
+		if ((Dealer[i] % 13) == 0 || (Dealer[i] % 13) > 9)
+			sum += 10;
+		else if ((Dealer[i] % 13) > 0 && (Dealer[i] % 13) < 10)
+			sum += (Dealer[i] % 13);
+		else
+			printf("오류 카드를 못더함\n");
+	}
+
+	if (sum > 21)
+	{
+		printf("Bust \n");
+		printf("Player Win \n");
+		return 1;
+	}
+
+	return 0;
+}
+// 올라가라 커밋쨔응  .gitignor 복붙햇는데 올라가라 
