@@ -57,11 +57,15 @@ void QuickSort()
 	int i, j;
 	int temp;
 	int size;
-	int count = 1;
+	int count = 0;
 	int pivot; 
+	
+	int pivotlist[20] = {};
+
 
 	pivot = array[MAX-1]; // pivot 은 맨오른쪽 
-
+	pivotlist[count] = pivot;
+	count++;
 	for (i = 0; i < MAX; i++)
 	{
 		printf("%d ", array[i]); //배열확인
@@ -114,6 +118,8 @@ void QuickSort()
 		size = pivot;
 		pivot = array[size - 1];
 		printf("\n\n\n");
+		
+		pivotlist[count] = pivot;
 		count++;
 		printf("\n\n %d번째 pivot = %d \n\n", count , pivot);
 		
@@ -162,32 +168,64 @@ void QuickSort()
 		{
 			printf("%d ", array[i]); //배열확인
 		}
-
 		
 	}
-	
 	//여기까지 만듬& 확인
-
-
 	// 위의 과정으로 왼쪽부터 0 1 까지는 맞춰짐 ㅎ
+	
+	//pivotlist 가 만들어짐 count로 갯수 셈
+
+	//우
 
 
 
 
+	/*
+	while (count)
+	{
+		count--;
+		
+		pivot = array[pivotlist[count - 1]-1]; //지난 pivot-1자리가 새로운 pivot
+
+		i = pivotlist[count]+1; //바로 전 pivot 다음 부터 정렬
+		j = pivot - 1; // pivot앞까지 정렬
+
+		printf("\n\n pivot = %d\n i = %d\n j = %d\n\n", pivot, i, j);
+
+		while (1) // 다시 좌측 조지기
+		{
+			if (array[i] > pivot && array[j] < pivot)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+
+			if (array[i] < pivot)
+			{
+				i++;
+			}
+
+			if (i >= pivot)
+			{
+				break;
+			}
+
+			if (array[j] > pivot)
+			{
+				j--;
+			}
+		}
+
+		printf("\n\n");
+	
+		for (i = 0; i < pivot + 1; i++)
+			printf("%d ", array[i]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+	}
+	*/ 
+	// 이거 심각하네 ㅜㅜ
 
 
 
