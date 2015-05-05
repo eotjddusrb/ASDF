@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 1000 // n = 1000
+#define MAX 100 // n = 1000
 // n= 10000 까진 확인됨
 
 void shuffle();
+void Print();
 void QuickSort(int, int);
 void swap(int*, int*);
-void merge_sort();
-void merge_array(int low, int mid, int high);
+void MergeSort(int, int);
+void MergeArray(int, int, int);
 
 //이제 정렬함수
 
@@ -24,27 +25,45 @@ void merge_array(int low, int mid, int high);
 int array[MAX] = { 0 };
 
 int prev_array[MAX] = {};
-int next_array[MAX];
+int next_array[MAX] = {};
 
 void main()
 {
-	int k;
+	int i;
+	int r;
+
 	srand(time(NULL));
 
+	for (i = 0; i < MAX; i++) //배열할당 
+		array[i] = i;
+
 	shuffle();
-	
+
 	printf("------- Quick Sort 하기 전 -------\n");
-	for (k = 0; k < MAX; k++)
-		printf("%4d ", array[k]); //배열확인
-
+	Print();
 	QuickSort(0, MAX-1);
-	
 	printf("\n\n------- Quick Sort 후 -------\n");
-	for (k = 0; k < MAX; k++)
-		printf("%4d ", array[k]); //배열확인
+	Print();
 
-	merge_sort();
+	for (i = 0; i < MAX; i++)
+		prev_array[i] = i;
 
+	for (i = 0; i < MAX; i++)
+	{
+		r = rand() % MAX;
+		swap(&prev_array[i], &prev_array[r]);
+	}
+
+	printf("\n\n------- Merge Sort 하기 전 -------\n");
+	for (i = 0; i < MAX; i++)
+		printf("%4d ", prev_array[i]); //배열확인
+	MergeSort(0, MAX-1);
+	printf("\n\n------- Merge Sort 후 -------\n");
+	for (i = 0; i < MAX; i++)
+		printf("%4d ", prev_array[i]); //배열확인
+	printf("\n\n\n");
+	for (i = 0; i < MAX; i++)
+		printf("%4d ", next_array[i]); //배열확인
 }
 
 void shuffle()
@@ -53,22 +72,23 @@ void shuffle()
 
 	for (i = 0; i < MAX; i++)
 	{
-		array[i] = i;
-	}
-
-	for (i = 0; i < MAX; i++)
-	{
 		r = rand() % MAX;
 		swap(&array[i], &array[r]);
 	}
+}
 
+void Print()
+{
+	int k;
+
+	for (k = 0; k < MAX; k++)
+		printf("%4d ", array[k]); //배열확인
 }
 
 void QuickSort(int left, int right)
 {
 	int pivot;
 	int i, j;
-	int k;
 
 	if (left <= right)
 	{
@@ -107,19 +127,19 @@ void swap(int*A, int*B)
 	*B = temp;
 }
 
-void merge_sort(int low, int high)
+void MergeSort(int low, int high)
 {
 	int mid;
 	if (low < high)
 	{
 		mid = (low + high) / 2;
-		merge_sort(low, mid);
-		merge_sort(mid + 1, high);
-		merge_array(low, mid, high);
+		MergeSort(low, mid);
+		MergeSort(mid + 1, high);
+		MergeArray(low, mid, high);
 	}
 }
 
-void merge_array(int low, int mid, int high)
+void MergeArray(int low, int mid, int high)
 {
 	int i, j, k, l;
 
@@ -158,10 +178,10 @@ void merge_array(int low, int mid, int high)
 			k++;
 		}
 	}
-	
+
 	for (l = low; l <= high; l++)
 	{
-		prev_array[l] = next_array[l];
+		next_array[l] = prev_array[l]; // prev_array[l] = next_array[l];
 	}
 }
 
