@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 100 // n = 1000
+#define MAX 1000 // n = 1000
 
 
 void shuffle();
@@ -58,25 +58,16 @@ void QuickSort()
 	int temp;
 	int size;
 	int count = 1;
-	/*
-	int li = 0;
-	int ri = 0;
-	int left[MAX] = {};
-	int right[MAX] = {};
-	*/
 	int pivot; 
 
 	pivot = array[MAX-1]; // pivot 은 맨오른쪽 
-
-
 
 	for (i = 0; i < MAX; i++)
 	{
 		printf("%d ", array[i]); //배열확인
 	}
 
-
-	printf("\n\n\n %d \n\n", pivot); // pivot확인
+	printf("\n\n %d \n\n", pivot); // pivot확인
 	
 	i = 0;
 	j = MAX - 2;
@@ -106,26 +97,33 @@ void QuickSort()
 		}
 	}
 
-	//여기까진 확인함
 	temp = array[pivot];
 	array[pivot] = array[MAX - 1];
 	array[MAX - 1] = temp; 
 	// 맨오른쪽에 있던 pivot을 pivot자리로 가져옴
 
-
-
-	while (pivot > 2)
+	printf("\n\n\n");
+	printf("pivot까지의 배열 =  ");
+	for (i = 0; i < pivot+1; i++)
+	{
+		printf("%d ", array[i]); //배열확인
+	}
+	
+	while (pivot > 1)
 	{
 		size = pivot;
 		pivot = array[size - 1];
-
-
+		printf("\n\n\n");
+		count++;
+		printf("\n\n %d번째 pivot = %d \n\n", count , pivot);
+		
 		i = 0;
 		j = size - 2;
 
-
 		while (1) // 좌측 조지기
 		{
+			
+			
 			if (array[i] > pivot && array[j] < pivot)
 			{
 				temp = array[i];
@@ -153,26 +151,66 @@ void QuickSort()
 		array[pivot] = array[size- 1];
 		array[size - 1] = temp;
 		
-		for (i = 0; i < size; i++)
+		printf("\n\n\n");
+		printf("size = %d\n", size);
+		printf("array[size] = %d \n", array[size]);
+		printf("pivot = %d \n", pivot);
+		printf("array[pivot] = %d \n", array[pivot]);
+		printf("\n\n\n");
+
+		for (i = 0; i < pivot + 1; i++)
 		{
-			printf(" %d ", array[i]);
+			printf("%d ", array[i]); //배열확인
 		}
-		printf("\n\n %d번째 pivot = %d \n\n", count , pivot);
-		count++;
+
+		
 	}
 	
+	//여기까지 만듬& 확인
+
+
+	// 위의 과정으로 왼쪽부터 0 1 까지는 맞춰짐 ㅎ
 
 
 
 
-	//여기까지 만듬
-	printf("\n\n\n %d \n\n", pivot);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// 마지막 array확인용
+	printf("\n\n %d \n\n", pivot);
 	for (i = 0; i < MAX; i++)
 	{
 		printf("%d ", array[i]);
 	}
 
 	
+
+
+
+
+
+
+
+
+
 
 
 	//Devide(left); // 배열을 넣을 때 이름만 넣는다.
