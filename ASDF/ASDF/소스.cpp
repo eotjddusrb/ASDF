@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 1000 // n = 1000
+#define MAX 100 // n = 1000
 
 
 void shuffle();
-void QuickSort();
-
+void QuickSort(int, int);
+void swap(int*, int*);
 
 //이제 정렬함수
 
@@ -29,13 +29,13 @@ void main()
 
 	shuffle();
 	
-	QuickSort();
+	QuickSort(0, MAX-1);
 	
 }
 
 void shuffle()
 {
-	int i, r, temp;
+	int i, r;
 
 	for (i = 0; i < MAX; i++)
 	{
@@ -45,15 +45,59 @@ void shuffle()
 	for (i = 0; i < MAX; i++)
 	{
 		r = rand() % MAX;
-		temp = array[i];
-		array[i] = array[r];
-		array[r] = temp;
+		swap(&array[i], &array[r]);
 	}
 
 }
 
+void QuickSort(int left, int right)
+{
+	int pivot;
+	int i, j;
 
-void QuickSort()
+	printf("\n left = %d \n right = %d \n\n", left, right);
+
+	if (left <= right)
+	{
+		///
+		for (i = left; left < right; left++)
+		{
+			printf("%d ", array[left]); //배열확인
+		}
+		///
+		pivot = array[right];
+		
+		i = left - 1;
+		j = right;
+		
+		while (1)
+		{
+			while (array[++i] > pivot);
+			while (array[--j] < pivot);
+			if (i > j)
+				break;
+			swap(&array[i], &array[j]);
+		}
+		swap(&array[pivot], &array[right]);
+		
+		printf("pivot = %d\n\n", pivot);
+		QuickSort(left, pivot - 1);
+		QuickSort(pivot + 1, right);
+	}
+}
+
+void swap(int*A, int*B)
+{
+	int temp;
+	temp = *A;
+	*A = *B;
+	*B = temp;
+}
+
+/*
+
+////
+void Quick_Sort()
 {
 	int i, j, r = 1;
 	int temp;
@@ -61,17 +105,106 @@ void QuickSort()
 	int count = 0;
 	int pivot;
 
+
+	int pi1 = 0;
+	int pi2 = 0;
+	int set = 0;
+
 	int pivotlist[100] = {};
 
 
 	pivot = array[MAX - 1]; // pivot 은 맨오른쪽 
 	pivotlist[count] = pivot;
 	count++;
-	/*
+	
 	for (i = 0; i < MAX; i++)
 	{
-	printf("%d ", array[i]); //배열확인
-	}*/
+		printf("%d ", array[i]); //배열확인
+	}
+
+	i = 0;
+	j = MAX - 2;
+
+
+	while (1)
+	{
+		while (1) // 1차 나눔
+		{
+			if (array[i] > pivot && array[j] < pivot)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+
+			if (array[i] < pivot)
+			{
+				i++;
+			}
+
+			if (i >= pivot)
+			{
+				printf("\n i = %d \n pivot = %d \n", i, pivot);
+				break;
+			}
+
+			if (array[j] > pivot)
+			{
+				j--;
+			}
+		}
+
+		for (i = 0; i < pivot; i++)
+		{
+			printf("%d ", array[i]);
+		}
+		printf("\n");
+		
+		temp = array[pivot];
+		array[pivot] = array[MAX - 1];
+		array[MAX - 1] = temp;
+		
+
+		// 맨오른쪽에 있던 pivot을 pivot자리로 가져옴
+		printf("\n\nset1 = %d\n\n", set);
+		for (; array[set] == set ; set++) //정렬된 수가 어디까지인지
+		{
+			printf("\n\nset2 = %d\n\n", set);
+		}
+
+		if (set >= pivot)
+			break;
+
+		//우선 좌를 생각해보자
+
+
+		pivotlist[count] = pivot; // 이건  초반 쪼개기
+		count++;
+		
+		if (array[pivot - 1] == 0)
+		{
+			temp = array[pivot - 1];
+			array[pivot - 1] = array[0];
+			array[0] = temp;
+		}
+		
+		pivot = array[pivot - 1];
+
+		i = set;
+		j = pivot - 1;
+
+
+
+	}
+
+
+
+
+	// 이위가 진짜로 짜보세
+
+/*
+
+
 
 	printf("\n\n %d \n\n", pivot); // pivot확인
 
@@ -247,7 +380,16 @@ void QuickSort()
 			}
 		}
 	}
-	/*
+
+
+
+
+
+
+
+
+
+	////////*
 	while (count)
 	{
 	count--;
@@ -283,14 +425,14 @@ void QuickSort()
 	j--;
 	}
 	}
-
+	////////////////////////////////
 	printf("\n\n");
 
 	for (i = 0; i < pivot + 1; i++)
 	printf("%d ", array[i]);
 
 	break;
-	}*/
+	}
 
 	// 이거 심각하네 ㅜㅜ
 
@@ -304,3 +446,5 @@ void QuickSort()
 
 	}
 }
+
+*/
