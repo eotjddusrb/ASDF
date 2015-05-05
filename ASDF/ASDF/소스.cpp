@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 100 // n = 1000
+#define MAX 1000 // n = 1000
 // n= 10000 까진 확인됨
 
 void shuffle();
-void Print();
+void Print(); //배열 확인
 void QuickSort(int, int);
 void swap(int*, int*);
 void MergeSort(int, int);
@@ -23,8 +23,6 @@ void MergeArray(int, int, int);
 
 // 배열 전역변수
 int array[MAX] = { 0 };
-
-int prev_array[MAX] = {};
 int next_array[MAX] = {};
 
 void main()
@@ -34,9 +32,6 @@ void main()
 
 	srand(time(NULL));
 
-	for (i = 0; i < MAX; i++) //배열할당 
-		array[i] = i;
-
 	shuffle();
 
 	printf("------- Quick Sort 하기 전 -------\n");
@@ -44,31 +39,22 @@ void main()
 	QuickSort(0, MAX-1);
 	printf("\n\n------- Quick Sort 후 -------\n");
 	Print();
-
-	for (i = 0; i < MAX; i++)
-		prev_array[i] = i;
-
-	for (i = 0; i < MAX; i++)
-	{
-		r = rand() % MAX;
-		swap(&prev_array[i], &prev_array[r]);
-	}
+	
+	shuffle();
 
 	printf("\n\n------- Merge Sort 하기 전 -------\n");
-	for (i = 0; i < MAX; i++)
-		printf("%4d ", prev_array[i]); //배열확인
+	Print();
 	MergeSort(0, MAX-1);
 	printf("\n\n------- Merge Sort 후 -------\n");
-	for (i = 0; i < MAX; i++)
-		printf("%4d ", prev_array[i]); //배열확인
-	printf("\n\n\n");
-	for (i = 0; i < MAX; i++)
-		printf("%4d ", next_array[i]); //배열확인
+	Print();
 }
 
 void shuffle()
 {
 	int i, r;
+
+	for (i = 0; i < MAX; i++) //배열할당 
+		array[i] = i;
 
 	for (i = 0; i < MAX; i++)
 	{
@@ -145,18 +131,18 @@ void MergeArray(int low, int mid, int high)
 
 	i = low;
 	j = mid + 1;
-	k = high; // low
+	k = low;
 
 	while (i <= mid && j <= high)   // 한쪽바구니가 떨어질때까지 반복
 	{
-		if (prev_array[i])
+		if (array[i] < array[j])
 		{
-			next_array[k] = prev_array[i];
+			next_array[k] = array[i];
 			i++;
 		}
 		else
 		{
-			next_array[k] = prev_array[j];
+			next_array[k] = array[j];
 			j++;
 		}
 		k++;
@@ -166,7 +152,7 @@ void MergeArray(int low, int mid, int high)
 	{
 		for (; j <= high; j++)
 		{
-			next_array[k] = prev_array[j];
+			next_array[k] = array[j];
 			k++;
 		}
 	}
@@ -174,14 +160,14 @@ void MergeArray(int low, int mid, int high)
 	{
 		for (; i <= mid; i++)
 		{
-			next_array[k] = prev_array[i];
+			next_array[k] = array[i];
 			k++;
 		}
 	}
 
 	for (l = low; l <= high; l++)
 	{
-		next_array[l] = prev_array[l]; // prev_array[l] = next_array[l];
+		array[l] = next_array[l];
 	}
 }
 
