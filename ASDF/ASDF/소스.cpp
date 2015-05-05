@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 100 // n = 1000
+#define MAX 1000 // n = 1000
 
 
 void shuffle();
@@ -25,12 +25,25 @@ int array[MAX] = { 0 };
 
 void main()
 {
+	int k;
 	srand(time(NULL));
 
 	shuffle();
 	
+	printf("------- Quick Sort 하기 전 -------\n");
+	for (k = 0; k < MAX; k++)
+	{
+		printf("%4d ", array[k]); //배열확인
+	}
+
 	QuickSort(0, MAX-1);
 	
+	printf("\n------- Quick Sort 후 -------\n");
+	for (k = 0; k < MAX; k++)
+	{
+		printf("%4d ", array[k]); //배열확인
+	}
+
 }
 
 void shuffle()
@@ -54,33 +67,32 @@ void QuickSort(int left, int right)
 {
 	int pivot;
 	int i, j;
-
-	printf("\n left = %d \n right = %d \n\n", left, right);
+	int k;
 
 	if (left <= right)
 	{
-		///
-		for (i = left; left < right; left++)
+		/*
+		if (array[right] == 0)
 		{
-			printf("%d ", array[left]); //배열확인
+			swap(&array[right], &array[0]); // 중간에 pivot이 0으로 잡히게 되면
+			printf("\n\n 0을 바꿧당 \n\n"); // 재귀의 고리에서 벗어나는 경우가 발생
 		}
-		///
+	*/
 		pivot = array[right];
-		
+
 		i = left - 1;
 		j = right;
 		
 		while (1)
 		{
-			while (array[++i] > pivot);
-			while (array[--j] < pivot);
+			while (array[++i] < pivot);
+			while (array[--j] > pivot);
 			if (i > j)
 				break;
 			swap(&array[i], &array[j]);
 		}
 		swap(&array[pivot], &array[right]);
 		
-		printf("pivot = %d\n\n", pivot);
 		QuickSort(left, pivot - 1);
 		QuickSort(pivot + 1, right);
 	}
