@@ -8,7 +8,7 @@
 
 void shuffle();
 void QuickSort();
-
+void Devide(int array[]);
 
 //이제 정렬함수
 
@@ -26,10 +26,6 @@ int array[MAX] = { 0 };
 
 void main()
 {
-	
-	int i, r, temp;
-
-
 	srand(time(NULL));
 
 	shuffle();
@@ -59,47 +55,102 @@ void shuffle()
 
 void QuickSort()
 { 
-	int i, r;
+	int i, j;
+	int temp;
+	/*
 	int li = 0;
 	int ri = 0;
 	int left[MAX] = {};
 	int right[MAX] = {};
-	int pivot;
+	*/
+	int pivot; 
 
-	r = rand() % MAX;
-	pivot = array[r];
+
+
+	pivot = array[MAX-1];
+
+	//int자료형의 함수를 만들어서 ri, li를 리턴해야될듯
 
 	for (i = 0; i < MAX; i++)
 	{
-		if (array[i] > pivot)
+		printf("%d ", array[i]);
+	}
+
+
+	printf("\n\n\n %d \n\n", pivot);
+	
+	i = 0;
+	j = MAX - 2;
+	
+	while (1)
+	{
+		if (array[i] > pivot && array[j] < pivot)
 		{
-			right[ri] = array[i];
-			ri++;
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+			printf("swap ");
 		}
-		else
+
+		if (array[i] < pivot)
 		{
-			left[li] = array[i];
-			li++;
+			printf("i++ ");
+			i++;
 		}
-	} //int자료형의 함수를 만들어서 ri, li를 리턴해야될듯
+
+		if (i >= pivot)
+		{
+			break;
+		}
+
+		if (array[j] > pivot)
+		{
+			j--;
+			printf("j-- ");
+		}
+	}
+	
+
+	//여기까지 만듬
+	printf("\n\n\n %d \n\n", pivot);
+	for (i = 0; i < MAX; i++)
+	{
+		printf("%d ", array[i]);
+	}
+
+	
 
 
-
-
+	//Devide(left); // 배열을 넣을 때 이름만 넣는다.
+	
+	/*
+	//확인차 출력
+	printf("\n\n\n");
 	for (i = 0; i < MAX; i++)
 	{
 		printf("%d ", left[i]);
 	}
 
-	printf("\n %d \n", pivot);
+	printf("\n\n %d \n\n", pivot);
 
 	for (i = 0; i < MAX; i++)
 	{
 		printf("%d ", right[i]);
 	}
-
-
-
-
+	*/
 
 }
+/*
+void Devide(int array[MAX])
+{
+	int i;
+	int count;
+
+	for (count = 0; array[count] > 0; count++)
+	{
+		printf("count = ");
+		printf("%d ", count);
+	}
+	
+
+}*/
