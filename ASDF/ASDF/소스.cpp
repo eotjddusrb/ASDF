@@ -3,11 +3,13 @@
 #include <time.h>
 
 #define MAX 1000 // n = 1000
-
+// n= 10000 까진 확인됨
 
 void shuffle();
 void QuickSort(int, int);
 void swap(int*, int*);
+void merge_sort();
+void merge_array(int low, int mid, int high);
 
 //이제 정렬함수
 
@@ -21,7 +23,8 @@ void swap(int*, int*);
 // 배열 전역변수
 int array[MAX] = { 0 };
 
-
+int prev_array[MAX] = {};
+int next_array[MAX];
 
 void main()
 {
@@ -32,17 +35,15 @@ void main()
 	
 	printf("------- Quick Sort 하기 전 -------\n");
 	for (k = 0; k < MAX; k++)
-	{
 		printf("%4d ", array[k]); //배열확인
-	}
 
 	QuickSort(0, MAX-1);
 	
-	printf("\n------- Quick Sort 후 -------\n");
+	printf("\n\n------- Quick Sort 후 -------\n");
 	for (k = 0; k < MAX; k++)
-	{
 		printf("%4d ", array[k]); //배열확인
-	}
+
+	merge_sort();
 
 }
 
@@ -105,6 +106,68 @@ void swap(int*A, int*B)
 	*A = *B;
 	*B = temp;
 }
+
+void merge_sort(int low, int high)
+{
+	int mid;
+	if (low < high)
+	{
+		mid = (low + high) / 2;
+		merge_sort(low, mid);
+		merge_sort(mid + 1, high);
+		merge_array(low, mid, high);
+	}
+}
+
+void merge_array(int low, int mid, int high)
+{
+	int i, j, k, l;
+
+	i = low;
+	j = mid + 1;
+	k = low;
+
+	while (i <= mid && j <= high)   // 한쪽바구니가 떨어질때까지 반복
+	{
+		if (prev_array[i])
+		{
+			next_array[k] = prev_array[i];
+			i++;
+		}
+		else
+		{
+			next_array[k] = prev_array[j];
+			j++;
+		}
+		k++;
+	}
+	
+	if (i > mid)
+	{
+		for (; j <= high; j++)
+		{
+			next_array[k] = prev_array[j];
+			k++;
+		}
+	}
+	else
+	{
+		for (; i <= mid; i++)
+		{
+			next_array[k] = prev_array[i];
+			k++;
+		}
+	}
+	
+	for (l = low; l <= high; l++)
+	{
+		prev_array[l] = next_array[l];
+	}
+}
+
+
+
+
 
 /*
 
