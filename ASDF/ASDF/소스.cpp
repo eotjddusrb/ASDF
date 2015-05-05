@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 1000 // n = 1000
+#define MAX 100 // n = 1000
 
 
 void shuffle();
@@ -153,7 +153,7 @@ void QuickSort()
 		array[pivot] = array[size- 1];
 		array[size - 1] = temp;
 		
-		for (i = 0; i < size - 1; i++)
+		for (i = 0; i < size; i++)
 		{
 			printf(" %d ", array[i]);
 		}
