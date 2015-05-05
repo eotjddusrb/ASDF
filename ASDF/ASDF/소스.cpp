@@ -145,7 +145,7 @@ void MergeArray(int low, int mid, int high)
 
 	i = low;
 	j = mid + 1;
-	k = low;
+	k = high; // low
 
 	while (i <= mid && j <= high)   // 한쪽바구니가 떨어질때까지 반복
 	{
@@ -408,7 +408,6 @@ void Quick_Sort()
 
 	//pivotlist 가 만들어짐 count로 갯수 셈
 
-	//우
 	while (r)
 	{
 		r++;
