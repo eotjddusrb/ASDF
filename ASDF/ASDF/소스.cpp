@@ -2,13 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 #define MAX 1000 // n = 1000
 
 
 void shuffle();
 void QuickSort();
-void Devide(int array[]);
+void Devide(int pivot);
 
 //이제 정렬함수
 
@@ -57,6 +56,8 @@ void QuickSort()
 { 
 	int i, j;
 	int temp;
+	int size;
+	int count = 1;
 	/*
 	int li = 0;
 	int ri = 0;
@@ -65,36 +66,32 @@ void QuickSort()
 	*/
 	int pivot; 
 
+	pivot = array[MAX-1]; // pivot 은 맨오른쪽 
 
 
-	pivot = array[MAX-1];
-
-	//int자료형의 함수를 만들어서 ri, li를 리턴해야될듯
 
 	for (i = 0; i < MAX; i++)
 	{
-		printf("%d ", array[i]);
+		printf("%d ", array[i]); //배열확인
 	}
 
 
-	printf("\n\n\n %d \n\n", pivot);
+	printf("\n\n\n %d \n\n", pivot); // pivot확인
 	
 	i = 0;
 	j = MAX - 2;
 	
-	while (1)
+	while (1) // 1차 나눔
 	{
 		if (array[i] > pivot && array[j] < pivot)
 		{
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
-			printf("swap ");
 		}
 
 		if (array[i] < pivot)
 		{
-			printf("i++ ");
 			i++;
 		}
 
@@ -106,10 +103,67 @@ void QuickSort()
 		if (array[j] > pivot)
 		{
 			j--;
-			printf("j-- ");
 		}
 	}
+
+	//여기까진 확인함
+	temp = array[pivot];
+	array[pivot] = array[MAX - 1];
+	array[MAX - 1] = temp; 
+	// 맨오른쪽에 있던 pivot을 pivot자리로 가져옴
+
+
+
+	while (pivot > 2)
+	{
+		size = pivot;
+		pivot = array[size - 1];
+
+
+		i = 0;
+		j = size - 2;
+
+
+		while (1) // 좌측 조지기
+		{
+			if (array[i] > pivot && array[j] < pivot)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+
+			if (array[i] < pivot)
+			{
+				i++;
+			}
+
+			if (i >= pivot)
+			{
+				break;
+			}
+
+			if (array[j] > pivot)
+			{
+				j--;
+			}
+		}
+
+		temp = array[pivot];
+		array[pivot] = array[size- 1];
+		array[size - 1] = temp;
+		
+		for (i = 0; i < size - 1; i++)
+		{
+			printf(" %d ", array[i]);
+		}
+		printf("\n\n %d번째 pivot = %d \n\n", count , pivot);
+		count++;
+	}
 	
+
+
+
 
 	//여기까지 만듬
 	printf("\n\n\n %d \n\n", pivot);
@@ -141,16 +195,61 @@ void QuickSort()
 
 }
 /*
-void Devide(int array[MAX])
+void Devide(int size)
 {
-	int i;
-	int count;
+	int i, j, temp;
+	int pivot;
+	int* left;
 
-	for (count = 0; array[count] > 0; count++)
-	{
-		printf("count = ");
-		printf("%d ", count);
-	}
+	left = (int*)malloc(size*sizeof(int));
 	
+	printf("\n\n 디바이드 들어와쩌염\n\n\n");
+	for (i = 0; i < size; i++)
+	{
+		left[i] = left[i];
+		printf(" %d", left[i]);
+	}
 
+	printf("\n\n\n");
+
+	pivot = left[size-1];
+
+	i = 0;
+	j = size - 2;
+
+	while (1) 
+	{
+		if (left[i] > pivot && left[j] < pivot)
+		{
+			temp = left[i];
+			left[i] = left[j];
+			left[j] = temp;
+			printf("swap ");
+		}
+
+		if (left[i] < pivot)
+		{
+			printf("i++ ");
+			i++;
+		}
+
+		if (i >= pivot)
+		{
+			break;
+		}
+
+		if (left[j] > pivot)
+		{
+			j--;
+			printf("j-- ");
+		}
+	}
+
+	temp = left[pivot];
+	left[pivot] = left[MAX - 1];
+	left[MAX - 1] = temp;
+
+
+	
+	free(left);
 }*/
