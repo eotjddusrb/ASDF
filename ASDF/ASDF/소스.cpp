@@ -54,30 +54,30 @@ void shuffle()
 
 
 void QuickSort()
-{ 
+{
 	int i, j, r = 1;
 	int temp;
 	int size;
 	int count = 0;
-	int pivot; 
-	
+	int pivot;
+
 	int pivotlist[100] = {};
 
 
-	pivot = array[MAX-1]; // pivot 은 맨오른쪽 
+	pivot = array[MAX - 1]; // pivot 은 맨오른쪽 
 	pivotlist[count] = pivot;
 	count++;
 	/*
 	for (i = 0; i < MAX; i++)
 	{
-		printf("%d ", array[i]); //배열확인
+	printf("%d ", array[i]); //배열확인
 	}*/
 
 	printf("\n\n %d \n\n", pivot); // pivot확인
-	
+
 	i = 0;
 	j = MAX - 2;
-	
+
 	while (1) // 1차 나눔
 	{
 		if (array[i] > pivot && array[j] < pivot)
@@ -105,33 +105,33 @@ void QuickSort()
 
 	temp = array[pivot];
 	array[pivot] = array[MAX - 1];
-	array[MAX - 1] = temp; 
+	array[MAX - 1] = temp;
 	// 맨오른쪽에 있던 pivot을 pivot자리로 가져옴
 
 	printf("\n\n\n");
 	printf("pivot까지의 배열 =  ");
-	for (i = 0; i < pivot+1; i++)
+	for (i = 0; i < pivot + 1; i++)
 	{
 		printf("%d ", array[i]); //배열확인
 	}
-	
+
 	while (pivot > 1)
 	{
 		size = pivot;
 		pivot = array[size - 1];
 		printf("\n\n\n");
-		
+
 		pivotlist[count] = pivot;
 		count++;
-		printf("\n\n %d번째 pivot = %d \n\n", count , pivot);
-		
+		printf("\n\n %d번째 pivot = %d \n\n", count, pivot);
+
 		i = 0;
 		j = size - 2;
 
 		while (1) // 좌측 조지기
 		{
-			
-			
+
+
 			if (array[i] > pivot && array[j] < pivot)
 			{
 				temp = array[i];
@@ -156,9 +156,9 @@ void QuickSort()
 		}
 
 		temp = array[pivot];
-		array[pivot] = array[size- 1];
+		array[pivot] = array[size - 1];
 		array[size - 1] = temp;
-		
+
 		printf("\n\n\n");
 		printf("size = %d\n", size);
 		printf("array[size] = %d \n", array[size]);
@@ -170,7 +170,7 @@ void QuickSort()
 		{
 			printf("%d ", array[i]); //배열확인
 		}
-		
+
 	}
 	/////////////////////////////////////////////////
 	//여기까지 만듬& 확인
@@ -188,7 +188,7 @@ void QuickSort()
 		if (count == 0)
 			break;
 		pivot = pivotlist[count - 1];
-		
+
 		printf("이게 제대로 돌아갈까 도키도키");
 
 		while (pivot > r * 2 - 1)
@@ -197,7 +197,7 @@ void QuickSort()
 			pivot = array[size - 1];
 			printf("\n\n\n");
 
-		
+
 			printf("\n\n %d번째 pivot = %d \n\n", count, pivot);
 
 			i = r;
@@ -250,48 +250,48 @@ void QuickSort()
 	/*
 	while (count)
 	{
-		count--;
-		
-		pivot = array[pivotlist[count - 2]-1]; //지난 pivot-1자리가 새로운 pivot
+	count--;
 
-		i = pivotlist[count]+1; //바로 전 pivot 다음 부터 정렬
-		j = pivot - 1; // pivot앞까지 정렬
+	pivot = array[pivotlist[count - 2]-1]; //지난 pivot-1자리가 새로운 pivot
 
-		printf("\n\n pivot = %d\n i = %d\n j = %d\n\n", pivot, i, j);
+	i = pivotlist[count]+1; //바로 전 pivot 다음 부터 정렬
+	j = pivot - 1; // pivot앞까지 정렬
 
-		while (1) // 다시 좌측 조지기
-		{
-			if (array[i] > pivot && array[j] < pivot)
-			{
-				temp = array[i];
-				array[i] = array[j];
-				array[j] = temp;
-			}
+	printf("\n\n pivot = %d\n i = %d\n j = %d\n\n", pivot, i, j);
 
-			if (array[i] < pivot)
-			{
-				i++;
-			}
+	while (1) // 다시 좌측 조지기
+	{
+	if (array[i] > pivot && array[j] < pivot)
+	{
+	temp = array[i];
+	array[i] = array[j];
+	array[j] = temp;
+	}
 
-			if (i >= pivot)
-			{
-				break;
-			}
+	if (array[i] < pivot)
+	{
+	i++;
+	}
 
-			if (array[j] > pivot)
-			{
-				j--;
-			}
-		}
+	if (i >= pivot)
+	{
+	break;
+	}
 
-		printf("\n\n");
-	
-		for (i = 0; i < pivot + 1; i++)
-			printf("%d ", array[i]);
+	if (array[j] > pivot)
+	{
+	j--;
+	}
+	}
 
-		break;
+	printf("\n\n");
+
+	for (i = 0; i < pivot + 1; i++)
+	printf("%d ", array[i]);
+
+	break;
 	}*/
-	 
+
 	// 이거 심각하네 ㅜㅜ
 
 
@@ -300,6 +300,7 @@ void QuickSort()
 	for (i = 0; i < MAX; i++)
 	{
 		printf("%d ", array[i]);
-	
 
+
+	}
 }
