@@ -12,15 +12,6 @@ void swap(int*, int*);
 void MergeSort(int, int);
 void MergeArray(int, int, int);
 
-//이제 정렬함수
-
-// left  right 함수를 만들어서 배열이 나뉘어 질때 걔네를 함수로 보내서 
-// 그 함수에서 처리된 후 나올 수 있게 하여 배열을 여러개 만들지 않아도 되도록 하면 좋겟다.
-// 재귀함수
-
-
-// 알고리즘...
-
 // 배열 전역변수
 int array[MAX] = { 0 };
 int next_array[MAX] = {};
@@ -125,58 +116,61 @@ void MergeSort(int low, int high)
 	}
 }
 
-void MergeArray(int low, int mid, int high)
-{
-	int i, j, k, l;
+void MergeArray(int low, int mid, int high) 
+{ 
+	int i, j, k, l; 
+	 
+	i = low; 
+	j = mid + 1; 
+	k = low; 
+	 
+	while (i <= mid && j <= high)   // 한쪽바구니가 떨어질때까지 반복 
+	{ 
+		if (array[i] < array[j]) 
+		{ 
+			next_array[k] = array[i]; 
+			i++; 
+		} 
+		else 
+		{ 
+			next_array[k] = array[j]; 
+			j++; 
+		} 
+		k++; 
+	} 
+	 
+	if (i > mid) 
+	{ 
+		for (; j <= high; j++) 
+		{ 
+			next_array[k] = array[j]; 
+			k++; 
+		} 
+	} 
+	else 
+	{ 
+		for (; i <= mid; i++) 
+		{ 
+			next_array[k] = array[i]; 
+			k++; 
+		} 
+	} 
+	 
+	for (l = low; l <= high; l++) 
+	{ 
+		array[l] = next_array[l]; 
+	} 
+} 
+ 
+  
+ 
 
-	i = low;
-	j = mid + 1;
-	k = low;
-
-	while (i <= mid && j <= high)   // 한쪽바구니가 떨어질때까지 반복
-	{
-		if (array[i] < array[j])
-		{
-			next_array[k] = array[i];
-			i++;
-		}
-		else
-		{
-			next_array[k] = array[j];
-			j++;
-		}
-		k++;
-	}
-	
-	if (i > mid)
-	{
-		for (; j <= high; j++)
-		{
-			next_array[k] = array[j];
-			k++;
-		}
-	}
-	else
-	{
-		for (; i <= mid; i++)
-		{
-			next_array[k] = array[i];
-			k++;
-		}
-	}
-
-	for (l = low; l <= high; l++)
-	{
-		array[l] = next_array[l];
-	}
-}
 
 
 
+ 
 
-
-/*
-
+ 
 ////
 void Quick_Sort()
 {
@@ -283,7 +277,7 @@ void Quick_Sort()
 
 	// 이위가 진짜로 짜보세
 
-/*
+
 
 
 
@@ -469,7 +463,7 @@ void Quick_Sort()
 
 
 
-	////////*
+/*
 	while (count)
 	{
 	count--;
@@ -524,7 +518,4 @@ void Quick_Sort()
 		printf("%d ", array[i]);
 
 
-	}
-}
 
-*/
