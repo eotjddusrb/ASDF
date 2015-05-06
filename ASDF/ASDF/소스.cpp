@@ -162,14 +162,13 @@ void MergeArray(int low, int mid, int high)
 	} 
 } 
  
+
+
   
  
 
 
-
-
- 
-
+/*
  
 ////
 void Quick_Sort()
@@ -279,7 +278,7 @@ void Quick_Sort()
 
 
 
-
+	/*
 
 	printf("\n\n %d \n\n", pivot); // pivot확인
 
@@ -455,67 +454,8 @@ void Quick_Sort()
 		}
 	}
 
+	
 
 
 
-
-
-
-
-
-/*
-	while (count)
-	{
-	count--;
-
-	pivot = array[pivotlist[count - 2]-1]; //지난 pivot-1자리가 새로운 pivot
-
-	i = pivotlist[count]+1; //바로 전 pivot 다음 부터 정렬
-	j = pivot - 1; // pivot앞까지 정렬
-
-	printf("\n\n pivot = %d\n i = %d\n j = %d\n\n", pivot, i, j);
-
-	while (1) // 다시 좌측 조지기
-	{
-	if (array[i] > pivot && array[j] < pivot)
-	{
-	temp = array[i];
-	array[i] = array[j];
-	array[j] = temp;
-	}
-
-	if (array[i] < pivot)
-	{
-	i++;
-	}
-
-	if (i >= pivot)
-	{
-	break;
-	}
-
-	if (array[j] > pivot)
-	{
-	j--;
-	}
-	}
-	////////////////////////////////
-	printf("\n\n");
-
-	for (i = 0; i < pivot + 1; i++)
-	printf("%d ", array[i]);
-
-	break;
-	}
-
-	// 이거 심각하네 ㅜㅜ
-
-
-	// 마지막 array확인용
-	printf("\n\n %d \n\n", pivot);
-	for (i = 0; i < MAX; i++)
-	{
-		printf("%d ", array[i]);
-
-
-
+	*/
