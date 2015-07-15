@@ -4,7 +4,7 @@
 
 #define MAX 1000 // n = 1000
 // n= 10000 까진 확인됨
-// 변경 테스트
+// 변
 
 void shuffle();
 void Print(); //배열 확인
